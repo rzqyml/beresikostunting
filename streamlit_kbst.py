@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import pickle
 from sklearn.preprocessing import LabelEncoder
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Function to perform prediction
 def predict(df, model):
@@ -24,11 +22,11 @@ def predict(df, model):
 def main():
     st.title("Sistem Prediksi Keluarga Beresiko Stunting")
 
-    # Upload Excel file
-    uploaded_file = st.file_uploader("Unggah file Excel", type=["xlsx"])
+    # Upload CSV file
+    uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
     if uploaded_file is not None:
-        # Read Excel file
-        df = pd.read_excel(uploaded_file)
+        # Read CSV file
+        df = pd.read_csv(uploaded_file)
         st.write("Data Awal:")
         st.write(df)
 
@@ -39,18 +37,11 @@ def main():
         predictions = predict(df, model)
         df['Hasil Prediksi'] = predictions
 
-        # Download Excel file with predictions
+        # Download CSV file with predictions
         st.write("Data dengan Hasil Prediksi:")
         st.write(df)
-        excel_file = df.to_excel(index=False)
-        st.download_button("Unduh Data dengan Hasil Prediksi", data=excel_file, file_name='predicted_data.xlsx', mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
-        # Visualisasi prediksi
-        st.subheader('Visualisasi Prediksi')
-        plt.figure(figsize=(8, 6))
-        sns.countplot(data=df, x='Hasil Prediksi')
-        plt.title('Distribusi Prediksi Keluarga Beresiko Stunting')
-        st.pyplot()
+        csv_file = df.to_csv(index=False)
+        st.download_button("Unduh Data dengan Hasil Prediksi", data=csv_file, file_name='predicted_data.csv', mime='text/csv')
 
 if __name__ == "__main__":
     main()
