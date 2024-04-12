@@ -23,10 +23,10 @@ def main():
     st.title("Sistem Prediksi Keluarga Beresiko Stunting")
 
     # Upload CSV file
-    uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
+    uploaded_file = st.file_uploader("Unggah file xlsx", type=["xlsx"])
     if uploaded_file is not None:
         # Read CSV file
-        df = pd.read_csv(uploaded_file)
+        df = pd.read_xlsx(uploaded_file)
         st.write("Data Awal:")
         st.write(df)
 
@@ -40,8 +40,8 @@ def main():
         # Download CSV file with predictions
         st.write("Data dengan Hasil Prediksi:")
         st.write(df)
-        csv_file = df.to_csv(index=False)
-        st.download_button("Unduh Data dengan Hasil Prediksi", data=csv_file, file_name='predicted_data.csv', mime='text/csv')
+        xlsx_file = df.to_xlsx(index=False)
+        st.download_button("Unduh Data dengan Hasil Prediksi", data=xlsx_file, file_name='predicted_data.xlsx', mime='text/xlsx')
 
         # Show predictions
         st.subheader("Hasil Prediksi:")
