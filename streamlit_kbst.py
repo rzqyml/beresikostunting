@@ -1,56 +1,47 @@
-import pickle
 import streamlit as st
+import pandas as pd
+import pickle
+from sklearn.preprocessing import LabelEncoder
 
-# membaca model
-kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
+# Function to perform prediction
+def predict(df, model):
+    # Preprocess the data if necessary
+    # For example, encode categorical variables
+    # Encode categorical columns if any
+    label_encoders = {}
+    for column in df.select_dtypes(include=['object']).columns:
+        label_encoders[column] = LabelEncoder()
+        df[column] = label_encoders[column].fit_transform(df[column])
 
-# judul web
-st.title('SISTEM PREDIKSI KELUARGA BERESIKO STUNTING')
+    # Perform prediction
+    predictions = model.predict(df)
+    
+    return predictions
 
-# membuat kolom dengan 2 bagian
-col1, col2 = st.columns(2)
+# Main function to run the web app
+def main():
+    st.title("Sistem Prediksi Keluarga Beresiko Stunting")
 
-# Input untuk pertanyaan-pertanyaan
-with col1:
-    sumber_air_minum_buruk = st.text_input('Apakah Sumber Air Minum Buruk?')
+    # Upload CSV file
+    uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
+    if uploaded_file is not None:
+        # Read CSV file
+        df = pd.read_csv(uploaded_file)
+        st.write("Data Awal:")
+        st.write(df)
 
-with col2:
-    sanitasi_buruk = st.text_input('Apakah Sanitasi Buruk?')
+        # Load model
+        model = pickle.load(open('kbst_model.sav', 'rb'))
 
-with col1:
-    terlalu_muda_istri = st.text_input('Apakah Istri Terlalu Muda?')
+        # Perform prediction
+        predictions = predict(df, model)
+        df['Hasil Prediksi'] = predictions
 
-with col2:
-    terlalu_tua_istri = st.text_input('Apakah Istri Terlalu Tua?')
+        # Download CSV file with predictions
+        st.write("Data dengan Hasil Prediksi:")
+        st.write(df)
+        csv_file = df.to_csv(index=False)
+        st.download_button("Unduh Data dengan Hasil Prediksi", data=csv_file, file_name='predicted_data.csv', mime='text/csv')
 
-with col1:
-    terlalu_dekat_umur = st.text_input('Apakah Umur Suami & Istri Terlalu Dekat?')
-
-with col2:
-    terlalu_banyak_anak = st.text_input('Apakah Memiliki Banyak Anak?')
-
-# variabel untuk hasil prediksi
-kbst_diagnosis = ''
-
-# membuat tombol untuk prediksi
-if st.button('Test Prediksi Stunting'):
-    # Menggunakan model untuk melakukan prediksi
-    kbst_prediction = kbst_model.predict([[sumber_air_minum_buruk, sanitasi_buruk, terlalu_muda_istri, terlalu_tua_istri, terlalu_dekat_umur, terlalu_banyak_anak]])
-
-    # Menyusun diagnosa berdasarkan hasil prediksi
-    if kbst_prediction[0] == 1:
-        kbst_diagnosis = 'Keluarga Beresiko Stunting'
-    else:
-        kbst_diagnosis = 'Keluarga Tidak Beresiko Stunting'
-
-# tombol reset untuk mengembalikan nilai ke default
-if st.button('Reset Input'):
-    sumber_air_minum_buruk = default_values['sumber_air_minum_buruk']
-    sanitasi_buruk = default_values['sanitasi_buruk']
-    terlalu_muda_istri = default_values['terlalu_muda_istri']
-    terlalu_tua_istri = default_values['terlalu_tua_istri']
-    terlalu_dekat_umur = default_values['terlalu_dekat_umur']
-    terlalu_banyak_anak = default_values['terlalu_banyak_anak']
-
-# Menampilkan hasil diagnosa
-st.success(kbst_diagnosis)
+if __name__ == "__main__":
+    main()
