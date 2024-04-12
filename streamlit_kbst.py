@@ -35,13 +35,17 @@ def main():
 
         # Perform prediction
         predictions = predict(df, model)
-        df['Hasil Prediksi'] = predictions
+        df['beresiko stunting'] = predictions
 
         # Download CSV file with predictions
         st.write("Data dengan Hasil Prediksi:")
         st.write(df)
         csv_file = df.to_csv(index=False)
         st.download_button("Unduh Data dengan Hasil Prediksi", data=csv_file, file_name='predicted_data.csv', mime='text/csv')
+
+        # Show predictions
+        st.subheader("Hasil Prediksi:")
+        st.write(df)
 
 if __name__ == "__main__":
     main()
