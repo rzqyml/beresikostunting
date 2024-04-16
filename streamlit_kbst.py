@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import matplotlib.pyplot as plt
+import pyplot as plt
 
 # Membaca model
 kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
