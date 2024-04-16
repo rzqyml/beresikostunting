@@ -27,7 +27,7 @@ if uploaded_file is not None:
         kbst_prediction = kbst_model.predict(df)
 
         # Menyimpan hasil prediksi ke dalam DataFrame hasil
-        hasil = pd.DataFrame(kbst_prediction, columns=['Hasil Prediksi'])
+        hasil = pd.DataFrame(kbst_prediction, columns=['hasil prediksi'])
 
         # Menampilkan DataFrame untuk hasil prediksi
         st.write('DataFrame untuk Hasil Prediksi:')
