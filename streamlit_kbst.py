@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
-#import plotly.express as px
+import matplotlib.pyplot as plt
 
 # Membaca model
 kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
@@ -38,5 +38,17 @@ if uploaded_file is not None:
         st.write('DataFrame Gabungan:')
         st.write(merged_df)
 # Visualisasi Pie Chart
-        fig = px.pie(merged_df, names='Hasil Prediksi', title='Sebaran Hasil Prediksi')
-        st.plotly_chart(fig)
+kategori_counts = np.bincount(hasil)
+
+labels = ['0', '1']
+sizes = kategori_counts
+
+# Warna dan eksplosi
+colors = ['#1368d6', '#37acf0']
+explode = (0, 0)
+
+# Membuat exploded pie chart
+plt.figure(figsize=(6, 6))
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=55)
+plt.title('Distribusi Kategori Beresiko Stunting')
+plt.show()
