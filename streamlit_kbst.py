@@ -38,3 +38,8 @@ if uploaded_file is not None:
         # Menampilkan dataframe gabungan
         st.write('DataFrame Gabungan:')
         st.write(merged_df)
+
+# Pie chart
+st.subheader('Pie Chart Hasil Prediksi')
+fig_pie = px.pie(hasil, names='Hasil Prediksi', title='Sebaran Hasil Prediksi')
+st.plotly_chart(fig_pie)
