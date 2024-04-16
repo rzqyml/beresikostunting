@@ -30,3 +30,9 @@ if uploaded_file is not None:
         # Menampilkan DataFrame untuk hasil prediksi
         st.write('DataFrame untuk Hasil Prediksi:')
         st.write(hasil)
+ # Menggabungkan dataframe hasil prediksi dengan dataframe asli
+        merged_df = pd.concat([df, hasil], axis=1)
+
+        # Menampilkan dataframe gabungan
+        st.write('DataFrame Gabungan:')
+        st.write(merged_df)
