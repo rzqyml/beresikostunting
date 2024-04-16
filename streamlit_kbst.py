@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import pickle
-pip install openpyxl
-
 
 # Fungsi untuk melakukan prediksi
 def predict_stunting_risk(data, model):
