@@ -1,45 +1,24 @@
+
 import streamlit as st
 import pandas as pd
-import pickle
 
-# Load the KBST model
-kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
+# Judul web
+st.title('Unggah File Excel dan Buat DataFrame')
 
-# Main function
-def main():
-    # Set page title
-    st.title('Prediksi Keluarga Beresiko Stunting')
+# Unggah file Excel
+uploaded_file = st.file_uploader("Unggah file Excel", type=["xlsx", "xls"])
 
-    # File upload
-    uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
+if uploaded_file is not None:
+    # Membaca file Excel dan membuat DataFrame
+    df = pd.read_excel(uploaded_file)
 
-    # Check if file is uploaded
-    if uploaded_file is not None:
-        # Read the CSV file
-        df = pd.read_csv(uploaded_file)
+    # Menampilkan DataFrame yang dibuat
+    st.write("DataFrame dari File Excel:")
+    st.write(df)
 
-        # Display the uploaded data
-        st.write("Data yang diunggah:")
-        st.write(df)
+    # Membuat DataFrame baru dengan data kosong
+    hasil = pd.DataFrame(columns=df.columns)
 
-        # Button for prediction
-        if st.button('Lakukan Prediksi'):
-            # Perform prediction
-            predictions = kbst_model.predict(df)
-
-            # Create a new dataframe with predictions
-            result_df = pd.DataFrame({'Hasil Prediksi': predictions})
-
-            # Concatenate the original dataframe and the result dataframe
-            result_df = pd.concat([df, result_df], axis=1)
-
-            # Display the result dataframe
-            st.write("Hasil Prediksi:")
-            st.write(result_df)
-
-            # Download the result dataframe as CSV
-            result_csv = result_df.to_csv(index=False)
-            st.download_button("Unduh Hasil Prediksi", data=result_csv, file_name='hasil_prediksi.csv', mime='text/csv')
-
-if __name__ == "__main__":
-    main()
+    # Menampilkan DataFrame baru
+    st.write("DataFrame Baru (Hasil):")
+    st.write(hasil)
