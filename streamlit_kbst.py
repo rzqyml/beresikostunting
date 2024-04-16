@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import plotly.express as px
+#import plotly.express as px
 
 
 # Membaca model
@@ -38,26 +38,3 @@ if uploaded_file is not None:
         # Menampilkan dataframe gabungan
         st.write('DataFrame Gabungan:')
         st.write(merged_df)
-
-# Visualisasi Pie Chart
-#kategori_counts = np.bincount(hasil)
-
-# Membuat pie chart menggunakan Plotly Express
-fig = px.pie(hasil, values='values', names='labels', title='Pie Chart')
-
-labels = ['0', '1']
-sizes = kategori_counts
-
-# Warna dan eksplosi
-colors = ['#1368d6', '#37acf0']
-explode = (0, 0)
-
-# Menampilkan pie chart di Streamlit
-st.plotly_chart(fig)
-
-# Membuat plot pie
-fig, ax = plt.subplots()
-ax.pie(sizes, labels=labels, autopct='%1.1f%%')
-
-# Menampilkan plot di Streamlit
-st.pyplot(fig)
