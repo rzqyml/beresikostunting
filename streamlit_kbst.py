@@ -26,7 +26,7 @@ def main():
     uploaded_file = st.file_uploader("Unggah file csv", type=["csv"])
     if uploaded_file is not None:
         # Read CSV file
-        df = pd.read_xlsx(uploaded_file)
+        df = pd.read_csv(uploaded_file)
         st.write("Data Awal:")
         st.write(df)
 
