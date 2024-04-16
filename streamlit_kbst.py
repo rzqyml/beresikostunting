@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import plotly.express as px
+#import plotly.express as px
 
 
 # Membaca model
@@ -40,6 +40,6 @@ if uploaded_file is not None:
         st.write(merged_df)
 
 # Pie chart
-st.subheader('Pie Chart Hasil Prediksi')
-fig_pie = px.pie(hasil, names='Hasil Prediksi', title='Sebaran Hasil Prediksi')
-st.plotly_chart(fig_pie)
+#st.subheader('Pie Chart Hasil Prediksi')
+#fig_pie = px.pie(hasil, names='Hasil Prediksi', title='Sebaran Hasil Prediksi')
+#st.plotly_chart(fig_pie)
