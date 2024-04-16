@@ -1,8 +1,12 @@
 import streamlit as st
 import pandas as pd
+import pickle
+
+# Membaca model
+kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
 
 # Judul web
-st.title('Unggah File CSV dan Buat DataFrame')
+st.title('SISTEM PREDIKSI KELUARGA BERESIKO STUNTING')
 
 # Upload file CSV
 uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
@@ -15,9 +19,14 @@ if uploaded_file is not None:
     st.write('DataFrame dari File CSV:')
     st.write(df)
 
-    # Membuat DataFrame baru untuk hasil
-    hasil = pd.DataFrame(columns=df.columns)
+    # Tombol untuk prediksi
+    if st.button('Lakukan Prediksi'):
+        # Menggunakan model untuk melakukan prediksi
+        kbst_prediction = kbst_model.predict(df)
 
-    # Menampilkan DataFrame untuk hasil
-    st.write('DataFrame untuk Hasil:')
-    st.write(hasil)
+        # Menyimpan hasil prediksi ke dalam DataFrame hasil
+        hasil = pd.DataFrame(kbst_prediction, columns=['Hasil Prediksi'])
+
+        # Menampilkan DataFrame untuk hasil prediksi
+        st.write('DataFrame untuk Hasil Prediksi:')
+        st.write(hasil)
