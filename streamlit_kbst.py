@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import plotly as px
+import plotly.express as px
 
 # Membaca model
 kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
