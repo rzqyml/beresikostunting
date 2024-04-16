@@ -30,7 +30,7 @@ if uploaded_file is not None:
         # Menampilkan DataFrame untuk hasil prediksi
         st.write('DataFrame untuk Hasil Prediksi:')
         st.write(hasil)
-
+"""
 # Fungsi untuk membuat pie chart
 def create_pie_chart(df):
     fig = px.pie(df, names=df.index, values='Hasil', title='Pie Chart Hasil Prediksi')
@@ -43,3 +43,4 @@ hasil_df = pd.read_csv(nama_file_csv)
 # Menampilkan tombol visualisasi
 if st.button('Visualisasi Pie Chart'):
     create_pie_chart(hasil_df)
+"""
