@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import pickle
 #import pyplot as plt
+import matplotlib.pyplot as plt
 
 # Membaca model
 kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
@@ -37,11 +38,12 @@ if uploaded_file is not None:
         # Menampilkan dataframe gabungan
         st.write('DataFrame Gabungan:')
         st.write(merged_df)
+
 # Visualisasi Pie Chart
 #kategori_counts = np.bincount(hasil)
 
-#labels = ['0', '1']
-#sizes = kategori_counts
+labels = ['0', '1']
+sizes = kategori_counts
 
 # Warna dan eksplosi
 #colors = ['#1368d6', '#37acf0']
@@ -52,3 +54,15 @@ if uploaded_file is not None:
 #plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=55)
 #plt.title('Distribusi Kategori Beresiko Stunting')
 #plt.show()
+
+# Data contoh
+
+# Membuat plot pie
+fig, ax = plt.subplots()
+ax.pie(sizes, labels=labels, autopct='%1.1f%%')
+
+# Warna dan eksplosi
+colors = ['#1368d6', '#37acf0']
+
+# Menampilkan plot di Streamlit
+st.pyplot(fig)
