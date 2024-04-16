@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import pickle
-import pandas_profiling
 #import plotly.express as px
 
 # Membaca model
@@ -43,10 +42,3 @@ if uploaded_file is not None:
 #st.subheader('Pie Chart Hasil Prediksi')
 #fig_pie = px.pie(hasil, names='Hasil Prediksi', title='Sebaran Hasil Prediksi')
 #st.plotly_chart(fig_pie)
-
-from streamlit_pandas_profiling import st_profile_report
-
-df = pd.hasil
-pr = df.profile_report()
-
-st_profile_report(pr)
