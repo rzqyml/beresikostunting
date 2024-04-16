@@ -1,51 +1,41 @@
 import streamlit as st
 import pandas as pd
 import pickle
-from sklearn.preprocessing import LabelEncoder
 
-# Function to perform prediction
-def predict(df, model):
-    # Preprocess the data if necessary
-    # For example, encode categorical variables
-    # Encode categorical columns if any
-    label_encoders = {}
-    for column in df.select_dtypes(include=['object']).columns:
-        label_encoders[column] = LabelEncoder()
-        df[column] = label_encoders[column].fit_transform(df[column])
-
-    # Perform prediction
-    predictions = model.predict(df)
-    
+# Fungsi untuk melakukan prediksi
+def predict_stunting_risk(data, model):
+    predictions = model.predict(data)
     return predictions
 
-# Main function to run the web app
+# Main function untuk menjalankan aplikasi web
 def main():
     st.title("Sistem Prediksi Keluarga Beresiko Stunting")
 
-    # Upload CSV file
-    uploaded_file = st.file_uploader("Unggah file xlsx", type=["xlsx"])
+    # Upload file Excel
+    uploaded_file = st.file_uploader("Unggah file Excel", type=["xlsx"])
+
     if uploaded_file is not None:
-        # Read CSV file
-        df = pd.read_xlsx(uploaded_file)
-        st.write("Data Awal:")
-        st.write(df)
+        # Baca data dari file Excel
+        df = pd.read_excel(uploaded_file)
 
-        # Load model
-        model = pickle.load(open('kbst_model.sav', 'rb'))
+        # Load model KBST
+        kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
 
-        # Perform prediction
-        predictions = predict(df, model)
-        df['beresiko stunting'] = predictions
+        # Tombol untuk melakukan prediksi
+        if st.button('Lakukan Prediksi'):
+            # Lakukan prediksi
+            predictions = predict_stunting_risk(df, kbst_model)
 
-        # Download CSV file with predictions
-        st.write("Data dengan Hasil Prediksi:")
-        st.write(df)
-        xlsx_file = df.to_xlsx(index=False)
-        st.download_button("Unduh Data dengan Hasil Prediksi", data=xlsx_file, file_name='predicted_data.xlsx', mime='text/xlsx')
+            # Tambahkan kolom hasil prediksi ke DataFrame
+            df['Beresiko Stunting'] = predictions
 
-        # Show predictions
-        st.subheader("Hasil Prediksi:")
-        st.write(df)
+            # Tampilkan DataFrame dengan hasil prediksi
+            st.write("Data dengan hasil prediksi:")
+            st.write(df)
+
+            # Unduh data dengan hasil prediksi
+            csv_file = df.to_csv(index=False)
+            st.download_button("Unduh Data dengan Hasil Prediksi", data=csv_file, file_name='predicted_data.csv', mime='text/csv')
 
 if __name__ == "__main__":
     main()
