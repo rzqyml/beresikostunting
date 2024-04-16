@@ -1,24 +1,23 @@
-
 import streamlit as st
 import pandas as pd
 
 # Judul web
-st.title('Unggah File Excel dan Buat DataFrame')
+st.title('Unggah File CSV dan Buat DataFrame')
 
-# Unggah file Excel
-uploaded_file = st.file_uploader("Unggah file Excel", type=["xlsx", "xls"])
+# Upload file CSV
+uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
 
+# DataFrame untuk data dari file CSV
 if uploaded_file is not None:
-    # Membaca file Excel dan membuat DataFrame
-    df = pd.read_excel(uploaded_file)
+    df = pd.read_csv(uploaded_file)
 
-    # Menampilkan DataFrame yang dibuat
-    st.write("DataFrame dari File Excel:")
+    # Menampilkan DataFrame
+    st.write('DataFrame dari File CSV:')
     st.write(df)
 
-    # Membuat DataFrame baru dengan data kosong
+    # Membuat DataFrame baru untuk hasil
     hasil = pd.DataFrame(columns=df.columns)
 
-    # Menampilkan DataFrame baru
-    st.write("DataFrame Baru (Hasil):")
+    # Menampilkan DataFrame untuk hasil
+    st.write('DataFrame untuk Hasil:')
     st.write(hasil)
