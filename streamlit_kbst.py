@@ -6,12 +6,12 @@ import pickle
 st.title('Upload File Excel')
 
 # Upload file Excel
-uploaded_file = st.file_uploader("Unggah file Excel", type=["xlsx", "xls"])
+uploaded_file = st.file_uploader("Unggah file Excel", type=["csv"])
 
 # Memproses file setelah diupload
 if uploaded_file is not None:
     # Membaca file Excel menjadi DataFrame
-    df = pd.read_excel(uploaded_file)
+    df = pd.read_csv(uploaded_file)
     
     # Menampilkan data DataFrame
     st.write('Data yang diupload:')
