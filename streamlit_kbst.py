@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import pickle
-#import pyplot as plt
-import matplotlib.pyplot as plt
+import plotly.express as px
+
 
 # Membaca model
 kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
@@ -42,27 +42,22 @@ if uploaded_file is not None:
 # Visualisasi Pie Chart
 #kategori_counts = np.bincount(hasil)
 
+# Membuat pie chart menggunakan Plotly Express
+fig = px.pie(hasil, values='values', names='labels', title='Pie Chart')
+
 labels = ['0', '1']
 sizes = kategori_counts
 
 # Warna dan eksplosi
-#colors = ['#1368d6', '#37acf0']
-#explode = (0, 0)
+colors = ['#1368d6', '#37acf0']
+explode = (0, 0)
 
-# Membuat exploded pie chart
-#plt.figure(figsize=(6, 6))
-#plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', startangle=55)
-#plt.title('Distribusi Kategori Beresiko Stunting')
-#plt.show()
-
-# Data contoh
+# Menampilkan pie chart di Streamlit
+st.plotly_chart(fig)
 
 # Membuat plot pie
 fig, ax = plt.subplots()
 ax.pie(sizes, labels=labels, autopct='%1.1f%%')
-
-# Warna dan eksplosi
-colors = ['#1368d6', '#37acf0']
 
 # Menampilkan plot di Streamlit
 st.pyplot(fig)
