@@ -10,11 +10,11 @@ kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
 st.title('SISTEM PREDIKSI KELUARGA BERESIKO STUNTING')
 
 # Upload file CSV
-uploaded_file = st.file_uploader("Unggah file xlsx", type=["xlsx"])
+uploaded_file = st.file_uploader("Unggah file xlsx", type=["xlsx","xls"])
 
 # DataFrame untuk data dari file CSV
 if uploaded_file is not None:
-    df = pd.read_xlsx(uploaded_file)
+    df = pd.read_excel(uploaded_file, engine='openpyxl')
     # Membaca file CSV dengan koma sebagai pemisah
     #df_comma = pd.read_csv(uploaded_file, sep=',')
 
