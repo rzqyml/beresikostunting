@@ -14,7 +14,7 @@ uploaded_file = st.file_uploader("Unggah file xlsx", type=["xlsx","xls"])
 
 # DataFrame untuk data dari file CSV
 if uploaded_file is not None:
-    df = pd.read_excel(uploaded_file, engine='openpyxl')
+    df = pd.read_excel(uploaded_file)
     # Membaca file CSV dengan koma sebagai pemisah
     #df_comma = pd.read_csv(uploaded_file, sep=',')
 
