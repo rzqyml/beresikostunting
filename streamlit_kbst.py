@@ -10,11 +10,11 @@ kbst_model = pickle.load(open('kbst_model.sav', 'rb'))
 st.title('SISTEM PREDIKSI KELUARGA BERESIKO STUNTING')
 
 # Upload file CSV
-uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
+uploaded_file = st.file_uploader("Unggah file xlsx", type=["xlsx"])
 
 # DataFrame untuk data dari file CSV
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file, sep=';')
+    df = pd.read_xlsx(uploaded_file)
     # Membaca file CSV dengan koma sebagai pemisah
     #df_comma = pd.read_csv(uploaded_file, sep=',')
 
@@ -23,7 +23,7 @@ if uploaded_file is not None:
 
 
     # Menampilkan DataFrame
-    st.write('DataFrame dari File CSV:')
+    st.write('DataFrame dari File xlsx:')
     st.write(df)
 
     # Tombol untuk prediksi
