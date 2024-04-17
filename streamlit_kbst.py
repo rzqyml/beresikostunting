@@ -29,13 +29,13 @@ if uploaded_file is not None:
         hasil = pd.DataFrame(kbst_prediction, columns=['hasil prediksi'])
 
         # Menampilkan DataFrame untuk hasil prediksi
-        st.write('DataFrame untuk Hasil Prediksi:')
+        st.write('DataFrame Hasil Prediksi:')
         st.write(hasil)
  # Menggabungkan dataframe hasil prediksi dengan dataframe asli
         merged_df = pd.concat([df, hasil], axis=1)
 
         # Menampilkan dataframe gabungan
-        st.write('DataFrame Gabungan:')
+        st.write('DataFrame Final:')
         st.write(merged_df)
 
 # Pie chart
