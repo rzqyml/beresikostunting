@@ -14,7 +14,13 @@ uploaded_file = st.file_uploader("Unggah file CSV", type=["csv"])
 
 # DataFrame untuk data dari file CSV
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file, sep=';', ',')
+    df = pd.read_csv(uploaded_file, sep=';')
+    # Membaca file CSV dengan koma sebagai pemisah
+    #df_comma = pd.read_csv(uploaded_file, sep=',')
+
+    # Membaca file CSV dengan titik koma sebagai pemisah
+   # df_semicolon = pd.read_csv(uploaded_file, sep=';')
+
 
     # Menampilkan DataFrame
     st.write('DataFrame dari File CSV:')
