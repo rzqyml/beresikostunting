@@ -17,7 +17,7 @@ if uploaded_file is not None:
     df = pd.read_excel(uploaded_file)
 
     # Menampilkan DataFrame
-    title='DataFrame dari File Excel'
+    st.write('DataFrame dari File Excel')
     st.write(df)
 
     # Tombol untuk prediksi
@@ -32,7 +32,7 @@ if uploaded_file is not None:
         merged_df = pd.concat([df, hasil], axis=1)
         
         # Menampilkan dataframe gabungan
-        title='DataFrame Hasil Prediksi:'
+        st.write('DataFrame Hasil Prediksi:')
         st.write(merged_df)
         
  # Generate pie chart
