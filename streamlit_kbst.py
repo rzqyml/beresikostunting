@@ -44,7 +44,7 @@ if uploaded_file is not None:
         st.write('DataFrame Final:')
         st.write(merged_df)
  # Generate pie chart
-        prediction_counts = hasil.value_counts()
+        prediction_counts = mergedd_df['hasil prediksi'].value_counts()
         prediction_counts.index = ['Tidak Beresiko Stunting' if idx == 0 else 'Beresiko Stunting' for idx in prediction_counts.index]
         fig = px.pie(prediction_counts, values=prediction_counts.values, names=prediction_counts.index,
                      title='Prediction Distribution')
